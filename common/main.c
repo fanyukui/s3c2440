@@ -254,15 +254,15 @@ static __inline__ int abortboot(int bootdelay)
 #endif
 
 if(0){								//HJ_del start	//为了缩短延时
-	while ((bootdelay > 0) && (!abort)) 
+	while ((bootdelay > 0) && (!abort))
 	{
 		int i;
 
 		--bootdelay;
 		/* delay 100 * 10ms */
-		for (i=0; !abort && i<100; ++i) 
+		for (i=0; !abort && i<100; ++i)
 		{
-			if (tstc()) 
+			if (tstc())
 			{	/* we got a key press	*/
 				abort  = 1;	/* don't auto boot	*/
 				bootdelay = 0;	/* no more delay	*/
@@ -334,7 +334,7 @@ if(0){								//HJ_del start	//为了缩短延时
 		embedsky_user_logo();						//user's logo display
 #endif
 		}
-#endif	
+#endif
 
 #ifdef CONFIG_SILENT_CONSOLE
 	if (abort) {
@@ -504,14 +504,17 @@ void main_loop (void)
 		{
 			/* Launch wince */
 			char cmd_buf[16];
-			printf("Booting wince ...\n");            
+			printf("Booting wince ...\n");
 			run_command("wince", 0);
 		}
 		else
 #endif
 		{
+		/*
 			printf("Booting Linux ...\n");
-			run_command("boot_zImage", 0);
+			run_command("boot_zImage", 0);*/
+			s = getenv ("bootcmd");
+			run_command(s,0);
 		}
 	}
 
@@ -563,7 +566,7 @@ void main_loop (void)
 	/*
 	 * Main Loop for Monitor Command Processing
 	 */
-	
+
 #ifdef CFG_HUSH_PARSER
 	parse_file_outer();
 	/* This point is never reached */
